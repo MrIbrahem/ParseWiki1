@@ -154,4 +154,8 @@ class Parameters
 
         return trim($result);
     }
+    public function __toString(): string
+    {
+        return $this->toString();
+    }
 }

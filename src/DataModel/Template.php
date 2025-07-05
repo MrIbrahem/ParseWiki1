@@ -28,6 +28,8 @@ class Template
     private string $nameStrip;
 
     /**
+     * The text.
+     *
      * @var string The original, unprocessed text.
      */
     private string $originalText;
@@ -122,5 +124,9 @@ class Template
 
         $result .= $separator . "}}";
         return $result;
+    }
+    public function __toString(): string
+    {
+        return $this->toString();
     }
 }
