@@ -5,13 +5,13 @@ namespace WikiConnect\ParseWiki\DataModel;
 use WikiConnect\ParseWiki\DataModel\Attribute;
 
 /**
- * Class Citation
+ * Class Tag
  *
- * Represents a citation in a wikitext document.
+ * Represents a tag in a wikitext document.
  *
  * @package WikiConnect\ParseWiki\DataModel
  */
-class Citation
+class Tag
 {
     /**
      * The name.
@@ -37,16 +37,17 @@ class Citation
 
     private bool $selfClosing = false;
     /**
-     * Citation constructor.
+     * Tag constructor.
      *
+     * @param string $tagname The name.
      * @param string $content The content.
      * @param string $attributes The attributes.
      * @param string $originalText The original, unprocessed text.
-     * @param bool $selfClosing Whether the citation is self-closing.
+     * @param bool $selfClosing Whether the tag is self-closing.
      */
-    public function __construct(string $content, string $attributes = "", string $originalText = "", bool $selfClosing = false)
+    public function __construct(string $tagname, string $content, string $attributes = "", string $originalText = "", bool $selfClosing = false)
     {
-        $this->tagname = "ref";
+        $this->tagname = $tagname;
         $this->content = $content;
         $this->attributes = $attributes;
         $this->originalText = $originalText;
@@ -126,7 +127,7 @@ class Citation
     /**
      * Convert the content to a string.
      *
-     * @return string The citation as a string.
+     * @return string The tag as a string.
      */
     public function toString(): string
     {

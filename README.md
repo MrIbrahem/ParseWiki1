@@ -21,23 +21,25 @@ Perfect for handling wiki-formatted text in PHP projects.
 - `ParserTemplates`: Parses multiple templates.
 - `ParserTemplate`: Parses a single template.
 - `ParserInternalLinks`: Parses internal wiki links.
+- `ParserTags`: Parses html tags.
 - `ParserExternalLinks`: Parses external links.
 - `ParserCitations`: Parses citations and references.
 - `ParserCategories`: Parses categories from wiki text.
 - `DataModel` classes:
   - `Attribute`
-  - `Citation`
   - `ExternalLink`
   - `InternalLink`
   - `Parameters`
+  - `Tag`
   - `Template`
 - `tests/`: Contains PHPUnit test files:
   - `ParserCategoriesTest`
   - `ParserCitationsTest`
   - `ParserExternalLinksTest`
   - `ParserInternalLinksTest`
-  - `ParserTemplatesTest`
+  - `ParserTagsTest`
   - `ParserTemplateTest`
+  - `ParserTemplatesTest`
   - `DataModel` tests:
     - `AttributeTest`
     - `ParametersTest`
@@ -66,8 +68,8 @@ Perfect for handling wiki-formatted text in PHP projects.
 | **Citations>Attributes**   | ✅ Yes  | ✅ Yes    | ✅ Yes     |
 | **Internal Links**         | ✅ Yes  |     |      |
 | **External Links**         | ✅ Yes  |     |      |
-| **Categories**             | ✅ Yes  |      |       |
-| **HTML Tags**              |   |     |      |
+| **Categories**             | ✅ Yes  |      |     |
+| **HTML Tags**              | ✅ Yes  | ✅ Yes    | ✅ Yes     |
 | **Parser Functions**       |   |   |       |
 | **Tables**                 |   |      |       |
 | **Sections**               |   |      |       |
@@ -206,6 +208,25 @@ $categories = $parser->getCategories();
 foreach ($categories as $category) {
     echo 'Category: ' . $category . PHP_EOL;
 }
+```
+
+### Parsing HTML tags
+
+```php
+use WikiConnect\ParseWiki\ParserTags;
+
+$text = '<gallery>Images</gallery><ref>Ignore this</ref><gallery>More images</gallery>';
+
+$parser = new ParserTags($text, 'gallery');
+$tags   = $parser->getTags();
+
+echo 'Found ' . count($tags) . " gallery tags\n";
+foreach ($tags as $tag) {
+    echo 'Name:      ' . $tag->getName()      . PHP_EOL;
+    echo 'Content:   ' . $tag->getContent()   . PHP_EOL;
+    echo 'Attributes:' . json_encode($tag->getAttributes()) . PHP_EOL;
+}
+
 ```
 
 ---

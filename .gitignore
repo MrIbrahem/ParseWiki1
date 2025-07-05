@@ -2,3 +2,4 @@
 .phpunit.result.cache
 /examples
 run.bat
+**.1.php

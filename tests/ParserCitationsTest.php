@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use WikiConnect\ParseWiki\ParserCitations;
-use WikiConnect\ParseWiki\DataModel\Citation;
+use WikiConnect\ParseWiki\DataModel\Tag;
 use WikiConnect\ParseWiki\DataModel\Attribute;
 
 class ParserCitationsTest extends TestCase
@@ -14,7 +14,7 @@ class ParserCitationsTest extends TestCase
         $citations = $parser->getCitations();
 
         $this->assertCount(1, $citations);
-        $this->assertInstanceOf(Citation::class, $citations[0]);
+        $this->assertInstanceOf(Tag::class, $citations[0]);
         $this->assertEquals('Reference content', $citations[0]->getContent());
     }
 
