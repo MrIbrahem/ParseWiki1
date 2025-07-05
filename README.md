@@ -72,7 +72,7 @@ Perfect for handling wiki-formatted text in PHP projects.
 | **Internal Links**         | ✅ Yes  |     |      |
 | **External Links**         | ✅ Yes  |     |      |
 | **Categories**             | ✅ Yes  |      |       |
-| **HTML Tags**              | ✅ Yes  | ✅ Yes    | ✅ Yes     |
+| **HTML Tags**              |   |     |      |
 | **Parser Functions**       |   |   |       |
 | **Tables**                 |   |      |       |
 | **Sections**               |   |      |       |
