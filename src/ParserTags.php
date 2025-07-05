@@ -23,7 +23,6 @@ class ParserTags
      * @var Tag[] Array of extracted tags.
      */
     private array $tags;
-    private array $tagsarray;
 
     /**
      * ParserTags constructor.
@@ -59,6 +58,7 @@ class ParserTags
             $standardMatches,
             PREG_SET_ORDER
         );
+
         foreach ($standardMatches as $match) {
             $matches[] = [
                 'original'    => $match[0],
@@ -68,7 +68,6 @@ class ParserTags
                 'selfClosing' => false,
             ];
         }
-
 
         // Self-closing tags like <ref ... />
         preg_match_all(
@@ -103,7 +102,6 @@ class ParserTags
     {
         $text_tags = $this->find_sub_tags($this->text);
         $this->tags = [];
-        $this->tagsarray = [];
 
         foreach ($text_tags as $citationData) {
             if ($this->tagname != "" && trim($citationData['name']) != trim($this->tagname)) {
@@ -117,23 +115,30 @@ class ParserTags
                 $citationData['selfClosing']
             );
             $this->tags[] = $_Citation;
-            $this->tagsarray[] = $citationData['original'];
         }
     }
 
     /**
      * Get all tags found in the text.
      *
-     * Returns the array of Tag objects extracted from the text.
+     * If a name is given, only the tags with that name are returned.
      *
-     * @return Tag[] Array of Tag objects.
+     * @param string|null $name The name of the tag to return.
+     *
+     * @return Tag[] An array of Tag objects.
      */
-    public function getTags(): array
+    public function getTags(?string $name = null): array
     {
-        return $this->tags;
-    }
-    public function getTagsArray(): array
-    {
-        return $this->tagsarray;
+        if (empty($name)) {
+            return $this->tags;
+        }
+
+        $outtags = [];
+        foreach ($this->tags as $tag) {
+            if ($tag->getName() == $name) {
+                $outtags[] = $tag;
+            }
+        }
+        return $outtags;
     }
 }
