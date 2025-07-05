@@ -100,7 +100,7 @@ class Citation
      *
      * @return string The attributes.
      */
-    public function getAttributesArray(): string
+    public function getAttributes(): string
     {
         return $this->attributes;
     }
