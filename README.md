@@ -30,7 +30,6 @@ Perfect for handling wiki-formatted text in PHP projects.
     - `ExternalLink`
     - `InternalLink`
     - `Parameters`
-    - `Tag`
     - `Template`
 - `tests/`: Contains PHPUnit test files:
     - `ParserCategoriesTest`
