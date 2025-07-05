@@ -81,7 +81,7 @@ class Tag
      *
      * @return string The attributes of the tag.
      */
-    public function getAttributes(): string
+    public function getAttributesArray(): string
     {
         return $this->attributes;
     }

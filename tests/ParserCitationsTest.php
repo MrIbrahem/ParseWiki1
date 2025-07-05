@@ -36,8 +36,8 @@ class ParserCitationsTest extends TestCase
         $citations = $parser->getCitations();
 
         $this->assertCount(1, $citations);
-        $this->assertStringContainsString('name="foo"', $citations[0]->getAttributes());
-        $this->assertStringContainsString('group="bar"', $citations[0]->getAttributes());
+        $this->assertStringContainsString('name="foo"', $citations[0]->getAttributesArray());
+        $this->assertStringContainsString('group="bar"', $citations[0]->getAttributesArray());
         $this->assertEquals('Attr ref', $citations[0]->getContent());
     }
 
@@ -94,8 +94,8 @@ class ParserCitationsTest extends TestCase
         $this->assertEquals('', $citation->getContent());
 
         // تحقق من السمات
-        $this->assertStringContainsString('name="test"', $citation->getAttributes());
-        $this->assertStringContainsString('group="alpha"', $citation->getAttributes());
+        $this->assertStringContainsString('name="test"', $citation->getAttributesArray());
+        $this->assertStringContainsString('group="alpha"', $citation->getAttributesArray());
 
         // تحقق من السمات ككائن Attribute
         $attrs = $citation->Attrs();

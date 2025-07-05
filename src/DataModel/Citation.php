@@ -78,7 +78,7 @@ class Citation
      *
      * @return string The attributes of the citation.
      */
-    public function getAttributes(): string
+    public function getAttributesArray(): string
     {
         return $this->attributes;
     }
