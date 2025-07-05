@@ -33,7 +33,7 @@ class Citation
      */
     private string $originalText;
 
-    private Attribute $attrs;
+    public Attribute $attrs;
 
     private bool $selfClosing = false;
     /**
@@ -131,10 +131,15 @@ class Citation
     public function toString(): string
     {
         $attrs = $this->attrs->toString();
-        if ($this->selfClosing && $this->content === "") {
-            return "<" . $this->tagname . "" . trim($attrs) . "/>";
+        $attrsStr = trim($attrs);
+        if ($this->selfClosing && trim($this->content) === "") {
+            return "<" . $this->tagname . "" . $attrsStr . "/>";
         }
-        $space = (trim($attrs) != "") ? " " : "";
-        return "<" . $this->tagname . $space . trim($attrs) . ">" . $this->content . "</" . trim($this->tagname) . ">";
+        $space = ($attrsStr != "") ? " " : "";
+        return "<" . $this->tagname . $space . $attrsStr . ">" . $this->content . "</" . trim($this->tagname) . ">";
+    }
+    public function __toString(): string
+    {
+        return $this->toString();
     }
 }
