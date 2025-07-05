@@ -12,7 +12,6 @@ This library allows you to extract:
 - External links
 - Citations (references)
 - Categories (with or without display text)
-- HTML Tags from wiki text
 Perfect for handling wiki-formatted text in PHP projects.
 
 ---
@@ -25,7 +24,6 @@ Perfect for handling wiki-formatted text in PHP projects.
 - `ParserExternalLinks`: Parses external links.
 - `ParserCitations`: Parses citations and references.
 - `ParserCategories`: Parses categories from wiki text.
-- `ParserTags`: Parses html tags from wiki text.
 - `DataModel` classes:
     - `Attribute`
     - `Citation`
@@ -39,7 +37,6 @@ Perfect for handling wiki-formatted text in PHP projects.
     - `ParserCitationsTest`
     - `ParserExternalLinksTest`
     - `ParserInternalLinksTest`
-    - `ParserTagsTest`
     - `ParserTemplatesTest`
     - `ParserTemplateTest`
     - `DataModel` tests:
