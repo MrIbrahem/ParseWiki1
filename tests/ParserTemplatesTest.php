@@ -197,4 +197,92 @@ class ParserTemplatesTest extends TestCase
         $this->assertEquals('x', $template->parameters->get('d'));
         $this->assertEquals('z', $template->parameters->get('c'));
     }
+    public function testRecognizesNestedTemplatesInSingleAndMultiLine()
+    {
+        $subText = "{{cite web\n|t=[[File:34|33|3px]]\n\n|u=live}}";
+        $text = "{{main
+            |t=[[sanaa|23]]
+            |xx=f3
+            | z = $subText
+            | f = {{cite web|t=[[File:34|33|3px]]|u={{!!|}}}}
+            }}
+            {{Infobox|name=[[John Doe]]|link=[[Page|Label]]}}
+        ";
+
+        $parser = new ParserTemplates($text);
+        $templates = $parser->getTemplates();
+
+        $templateNames = array_map(fn($tpl) => $tpl->getStripName(), $templates);
+
+        // يجب أن يلتقط القوالب التالية: main، cite web (مرتين)، Infobox
+        $this->assertCount(5, $templates);
+        $this->assertContains('main', $templateNames);
+        $this->assertContains('cite web', $templateNames);
+        $this->assertContains('Infobox', $templateNames);
+        $this->assertContains('!!', $templateNames);
+
+        // تأكد من أن كل قالب لا يعيد نصًا فارغًا
+        foreach ($templates as $tpl) {
+            $this->assertNotEmpty($tpl->getOriginalText());
+        }
+
+        // تحقق من وجود القالب المتداخل في عدة أسطر
+        $citeTemplates = array_filter($templates, fn($tpl) => $tpl->getStripName() === 'cite web');
+        $this->assertCount(2, $citeTemplates);
+    }
+
+    public function testRecognizesNestedTemplatesInSingleAndMultiLineParameters()
+    {
+        $subText = "{{cite web\n|t=[[File:34|33|3px]]\n\n|u=live}}";
+        $text = "{{main
+            |t=[[sanaa|23]]
+            |xx=f3
+            | z = $subText
+            | f = {{cite web|t=[[File:34|33|3px]]|u={{!!|}}}}
+            }}
+            {{Infobox|name=[[John Doe]]|link=[[Page|Label]]}}
+        ";
+
+        $parser = new ParserTemplates($text);
+        $templates = $parser->getTemplates();
+
+        $mainTemplate = array_filter($templates, fn($tpl) => $tpl->getStripName() === 'main');
+        $this->assertCount(1, $mainTemplate);
+        $parameters = $mainTemplate[0]->parameters->getParameters();
+
+        $this->assertEquals('{{cite web|t=[[File:34|33|3px]]|u={{!!|}}}}', $parameters['f']);
+        $this->assertEquals($subText, $parameters['z']);
+    }
+
+    public function testNestedTemplatesAreExactlyPreservedAsParameterValues()
+    {
+        $citeBook = "{{cite book|t=y|u=z|f={{test new!|o=[[File:34|33|3px]]}}}}";
+        $text = "{{main|t=[[sanaa|23]]|z={{cite web|t=x|u=y}}|f=$citeBook}}";
+
+        $parser = new ParserTemplates($text);
+        $templates = $parser->getTemplates();
+
+        $parameters = $templates[0]->parameters->getParameters();
+
+        // تحقق من وجود المفاتيح الفرعية
+        $this->assertArrayHasKey('z', $parameters);
+        $this->assertArrayHasKey('f', $parameters);
+
+        // تحقق من تطابق القيمة مع نص القالب الفرعي حرفيًا
+        $this->assertEquals('{{cite web|t=x|u=y}}', $parameters['z']);
+        $this->assertEquals($citeBook, $parameters['f']);
+    }
+    public function testNestedTemplates()
+    {
+        $testTemp = "{{test new!|o=[[File:34|33|3px]]}}";
+        $text = "{{main|t=[[sanaa|23]]|z={{cite web|t=x|u=y}}|!=$testTemp}}";
+
+        $parser = new ParserTemplates($text);
+        $templates = $parser->getTemplates();
+
+        $Template = array_filter($templates, fn($tpl) => $tpl->getStripName() === 'main');
+        $this->assertCount(1, $Template);
+
+        $this->assertEquals($testTemp, $Template[0]->parameters->getParameters()['!']);
+    }
 }
