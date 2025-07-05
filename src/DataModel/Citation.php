@@ -14,20 +14,22 @@ use WikiConnect\ParseWiki\DataModel\Attribute;
 class Citation
 {
     /**
-     * @var string The name of the tag.
+     * The name.
+     *
+     * @var string The name.
      */
     private string $tagname;
     /**
-     * @var string The content of the citation.
+     * @var string The content.
      */
     private string $content;
 
     /**
-     * @var string The attributes of the citation.
+     * @var string The attributes.
      */
     private string $attributes;
     /**
-     * @var string The original, unprocessed text of the citation.
+     * @var string The original, unprocessed text.
      */
     private string $originalText;
 
@@ -37,8 +39,10 @@ class Citation
     /**
      * Citation constructor.
      *
-     * @param string $content The content of the citation.
-     * @param string $attributes The attributes of the citation.
+     * @param string $content The content.
+     * @param string $attributes The attributes.
+     * @param string $originalText The original, unprocessed text.
+     * @param bool $selfClosing Whether the citation is self-closing.
      */
     public function __construct(string $content, string $attributes = "", string $originalText = "", bool $selfClosing = false)
     {
@@ -50,23 +54,29 @@ class Citation
         $this->attrs = new Attribute($this->attributes);
     }
 
+    /**
+     * Get the name.
+     *
+     * @return string The name.
+     */
+
     public function getName(): string
     {
         return $this->tagname;
     }
     /**
-     * Get the original, unprocessed text of the citation.
+     * Get the original, unprocessed text.
      * Example: <ref name="name">{{cite web|...}}</ref>
-     * @return string The original text of the citation.
+     * @return string The original text.
      */
     public function getOriginalText(): string
     {
         return $this->originalText;
     }
     /**
-     * Get the content of the citation.
+     * Get the content.
      * Example: {{cite web|...}}
-     * @return string The content of the citation.
+     * @return string The content.
      */
     public function getContent(): string
     {
@@ -74,19 +84,9 @@ class Citation
     }
 
     /**
-     * Get the attributes of the citation.
+     * Set the content.
      *
-     * @return string The attributes of the citation.
-     */
-    public function getAttributesArray(): string
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * Set the content of the citation.
-     *
-     * @param string $content The content of the citation.
+     * @param string $content The content.
      *
      * @return void
      */
@@ -94,13 +94,24 @@ class Citation
     {
         $this->content = $content;
     }
+
     /**
-     * Set the attributes of the citation.
+     * Get the attributes.
      *
-     * @param string $attributes The attributes of the citation.
+     * @return string The attributes.
+     */
+    public function getAttributesArray(): string
+    {
+        return $this->attributes;
+    }
+    /**
+     * Set the attributes.
+     *
+     * @param string $attributes The attributes.
      *
      * @return void
      */
+
     public function setAttributes(string $attributes): void
     {
         $this->attributes = $attributes;
@@ -113,7 +124,7 @@ class Citation
     }
 
     /**
-     * Convert the citation to a string using the Attribute object for attribute formatting.
+     * Convert the content to a string.
      *
      * @return string The citation as a string.
      */
@@ -121,9 +132,9 @@ class Citation
     {
         $attrs = $this->attrs->toString();
         if ($this->selfClosing && $this->content === "") {
-            return "<ref " . trim($attrs) . "/>";
+            return "<" . $this->tagname . "" . trim($attrs) . "/>";
         }
         $space = (trim($attrs) != "") ? " " : "";
-        return "<ref" . $space . trim($attrs) . ">" . $this->content . "</ref>";
+        return "<" . $this->tagname . $space . trim($attrs) . ">" . $this->content . "</" . trim($this->tagname) . ">";
     }
 }

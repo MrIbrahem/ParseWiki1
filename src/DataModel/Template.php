@@ -15,22 +15,20 @@ use WikiConnect\ParseWiki\DataModel\Parameters;
 class Template
 {
     /**
-     * The name of the template.
+     * The name.
      *
-     * @var string
+     * @var string The name.
      */
     private string $name;
     /**
-     * The name of the template stripped of any underscores.
+     * The name stripped of any underscores.
      *
      * @var string
      */
     private string $nameStrip;
 
     /**
-     * The text of the template.
-     *
-     * @var string
+     * @var string The original, unprocessed text.
      */
     private string $originalText;
 
@@ -39,9 +37,9 @@ class Template
     /**
      * Template constructor.
      *
-     * @param string $name The name of the template.
-     * @param array $parameters The parameters of the template.
-     * @param string $originalText The text of the template.
+     * @param string $name The name.
+     * @param array $parameters The parameters.
+     * @param string $originalText The text.
      */
 
     public function __construct(string $name, array $parameters = [], string $originalText = "")
@@ -53,31 +51,9 @@ class Template
     }
 
     /**
-     * Get the text of the template.
+     * Get the name stripped of any underscores.
      *
-     * @return string The text of the template.
-     */
-
-    public function getOriginalText(): string
-    {
-        return $this->originalText;
-    }
-
-    /**
-     * Get the name of the template.
-     *
-     * @return string The name of the template.
-     */
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get the name of the template stripped of any underscores.
-     *
-     * @return string The name of the template stripped of any underscores.
+     * @return string The name stripped of any underscores.
      */
 
     public function getStripName(): string
@@ -86,9 +62,31 @@ class Template
     }
 
     /**
-     * Get the parameters of the template.
+     * Get the name.
      *
-     * @return array The parameters of the template.
+     * @return string The name.
+     */
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get the original, unprocessed text.
+     * Example: {{cite web|...}}
+     * @return string The original text.
+     */
+
+    public function getOriginalText(): string
+    {
+        return $this->originalText;
+    }
+
+    /**
+     * Get the parameters.
+     *
+     * @return array The parameters.
      */
 
     public function getParameters(): array
@@ -96,9 +94,9 @@ class Template
         return $this->parameters->getParameters();
     }
     /**
-     * Set the name of the template.
+     * Set the name.
      *
-     * @param string $name The new name of the template.
+     * @param string $name The new name.
      *
      * @return void
      */
@@ -108,6 +106,11 @@ class Template
         $this->name = $name;
     }
 
+    /**
+     * Convert the content to a string.
+     *
+     * @return string The tag as a string.
+     */
     public function toString(bool $newLine = false, $ljust = 0): string
     {
         $separator = $newLine ? "\n" : "";

@@ -14,20 +14,22 @@ use WikiConnect\ParseWiki\DataModel\Attribute;
 class Tag
 {
     /**
-     * @var string The name of the tag.
+     * The name.
+     *
+     * @var string The name.
      */
     private string $tagname;
     /**
-     * @var string The content of the tag.
+     * @var string The content.
      */
     private string $content;
 
     /**
-     * @var string The attributes of the tag.
+     * @var string The attributes.
      */
     private string $attributes;
     /**
-     * @var string The original, unprocessed text of the tag.
+     * @var string The original, unprocessed text.
      */
     private string $originalText;
 
@@ -37,10 +39,10 @@ class Tag
     /**
      * Tag constructor.
      *
-     * @param string $tagname The name of the tag.
-     * @param string $content The content of the tag.
-     * @param string $attributes The attributes of the tag.
-     * @param string $originalText The original, unprocessed text of the tag.
+     * @param string $tagname The name.
+     * @param string $content The content.
+     * @param string $attributes The attributes.
+     * @param string $originalText The original, unprocessed text.
      * @param bool $selfClosing Whether the tag is self-closing.
      */
     public function __construct(string $tagname, string $content, string $attributes = "", string $originalText = "", bool $selfClosing = false)
@@ -53,23 +55,29 @@ class Tag
         $this->attrs = new Attribute($this->attributes);
     }
 
+    /**
+     * Get the name.
+     *
+     * @return string The name.
+     */
+
     public function getName(): string
     {
         return $this->tagname;
     }
     /**
-     * Get the original, unprocessed text of the tag.
+     * Get the original, unprocessed text.
      * Example: <ref name="name">{{cite web|...}}</ref>
-     * @return string The original text of the tag.
+     * @return string The original text.
      */
     public function getOriginalText(): string
     {
         return $this->originalText;
     }
     /**
-     * Get the content of the tag.
+     * Get the content.
      * Example: {{cite web|...}}
-     * @return string The content of the tag.
+     * @return string The content.
      */
     public function getContent(): string
     {
@@ -77,19 +85,9 @@ class Tag
     }
 
     /**
-     * Get the attributes of the tag.
+     * Set the content.
      *
-     * @return string The attributes of the tag.
-     */
-    public function getAttributesArray(): string
-    {
-        return $this->attributes;
-    }
-
-    /**
-     * Set the content of the tag.
-     *
-     * @param string $content The content of the tag.
+     * @param string $content The content.
      *
      * @return void
      */
@@ -97,13 +95,24 @@ class Tag
     {
         $this->content = $content;
     }
+
     /**
-     * Set the attributes of the tag.
+     * Get the attributes.
      *
-     * @param string $attributes The attributes of the tag.
+     * @return string The attributes.
+     */
+    public function getAttributesArray(): string
+    {
+        return $this->attributes;
+    }
+    /**
+     * Set the attributes.
+     *
+     * @param string $attributes The attributes.
      *
      * @return void
      */
+
     public function setAttributes(string $attributes): void
     {
         $this->attributes = $attributes;
@@ -116,7 +125,7 @@ class Tag
     }
 
     /**
-     * Convert the tag to a string using the Attribute object for attribute formatting.
+     * Convert the content to a string.
      *
      * @return string The tag as a string.
      */
