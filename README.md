@@ -218,13 +218,13 @@ use WikiConnect\ParseWiki\ParserTags;
 $text = '<gallery>Images</gallery><ref>Ignore this</ref><gallery>More images</gallery>';
 
 $parser = new ParserTags($text, 'gallery');
-$tags = $parser->getTags();
+$tags   = $parser->getTags();
 
-$this->assertCount(2, $tags);
+echo 'Found ' . count($tags) . " gallery tags\n";
 foreach ($tags as $tag) {
-    $this->assertEquals('gallery', trim($tag->getName()));
-    echo 'Content: ' . $tag->getContent() . PHP_EOL;
-    echo 'Attributes: ' . $tag->getAttributes() . PHP_EOL;
+    echo 'Name:      ' . $tag->getName()      . PHP_EOL;
+    echo 'Content:   ' . $tag->getContent()   . PHP_EOL;
+    echo 'Attributes:' . json_encode($tag->getAttributes()) . PHP_EOL;
 }
 
 ```
