@@ -25,24 +25,23 @@ Perfect for handling wiki-formatted text in PHP projects.
 - `ParserCitations`: Parses citations and references.
 - `ParserCategories`: Parses categories from wiki text.
 - `DataModel` classes:
-    - `Attribute`
-    - `Citation`
-    - `ExternalLink`
-    - `InternalLink`
-    - `Parameters`
-    - `Template`
+  - `Attribute`
+  - `Citation`
+  - `ExternalLink`
+  - `InternalLink`
+  - `Parameters`
+  - `Template`
 - `tests/`: Contains PHPUnit test files:
-    - `ParserCategoriesTest`
-    - `ParserCitationsTest`
-    - `ParserExternalLinksTest`
-    - `ParserInternalLinksTest`
-    - `ParserTemplatesTest`
-    - `ParserTemplateTest`
-    - `DataModel` tests:
-        - `AttributeTest`
-        - `ParametersTest`
-        - `TemplateTest`
-
+  - `ParserCategoriesTest`
+  - `ParserCitationsTest`
+  - `ParserExternalLinksTest`
+  - `ParserInternalLinksTest`
+  - `ParserTemplatesTest`
+  - `ParserTemplateTest`
+  - `DataModel` tests:
+    - `AttributeTest`
+    - `ParametersTest`
+    - `TemplateTest`
 ---
 
 ## 🚀 Features

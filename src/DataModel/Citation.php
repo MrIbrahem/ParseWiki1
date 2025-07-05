@@ -132,10 +132,10 @@ class Citation
     {
         $attrs = $this->attrs->toString();
         $attrsStr = trim($attrs);
+        $space = ($attrsStr != "") ? " " : "";
         if ($this->selfClosing && trim($this->content) === "") {
             return "<" . $this->tagname . "" . $attrsStr . "/>";
         }
-        $space = ($attrsStr != "") ? " " : "";
         return "<" . $this->tagname . $space . $attrsStr . ">" . $this->content . "</" . trim($this->tagname) . ">";
     }
     public function __toString(): string
