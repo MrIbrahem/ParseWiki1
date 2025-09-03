@@ -3,6 +3,7 @@
 namespace WikiConnect\ParseWiki;
 
 use WikiConnect\ParseWiki\DataModel\Template;
+use WikiConnect\ParseWiki\ParserTemplate;
 
 /**
  * Class ParserTemplates

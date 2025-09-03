@@ -1,4 +1,5 @@
 <?php
+
 namespace WikiConnect\ParseWiki\DataModel;
 
 /**
@@ -61,9 +62,9 @@ class InternalLink
     public function toString(): string
     {
         if ($this->text == $this->target) {
-            return "[[".$this->target."]]";
+            return "[[" . $this->target . "]]";
         } else {
-            return "[[".$this->target."|".$this->text."]]";
+            return "[[" . $this->target . "|" . $this->text . "]]";
         }
     }
     public function __toString(): string
@@ -71,4 +72,3 @@ class InternalLink
         return $this->toString();
     }
 }
-

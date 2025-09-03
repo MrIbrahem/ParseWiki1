@@ -1,5 +1,7 @@
 <?php
+
 namespace WikiConnect\ParseWiki;
+
 use WikiConnect\ParseWiki\DataModel\ExternalLink;
 
 /**
@@ -24,7 +26,8 @@ class ParserExternalLinks
      * ParserExternalLinks constructor.
      * @param string $text
      */
-    public function __construct(string $text) {
+    public function __construct(string $text)
+    {
         $this->text = $text;
         $this->parse();
     }

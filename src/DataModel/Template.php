@@ -43,7 +43,6 @@ class Template
      * @param array $parameters The parameters.
      * @param string $originalText The text.
      */
-
     public function __construct(string $name, array $parameters = [], string $originalText = "")
     {
         $this->name = $name;
@@ -108,7 +107,18 @@ class Template
         $this->name = $name;
         $this->nameStrip = trim(str_replace('_', ' ', $name));
     }
-
+    public function setParameter(string $key, string $value): void
+    {
+        $this->parameters->set($key, $value);
+    }
+    public function changeParameterName(string $old, string $new): void
+    {
+        $this->parameters->changeParametersNames([$old => $new]);
+    }
+    public function changeParametersNames(array $params_new): void
+    {
+        $this->parameters->changeParametersNames($params_new);
+    }
     /**
      * Convert the content to a string.
      *

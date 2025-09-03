@@ -64,5 +64,3 @@ class ParserInternalLinks
         return $this->targets;
     }
 }
-
-
