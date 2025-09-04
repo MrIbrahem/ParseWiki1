@@ -94,6 +94,14 @@ class Template
     {
         return $this->parameters->getParameters();
     }
+    public function deleteParameter(string $key): void
+    {
+        $this->parameters->delete($key);
+    }
+    public function getParameter(string $key): string
+    {
+        return $this->parameters->get($key);
+    }
     /**
      * Set the name.
      *
